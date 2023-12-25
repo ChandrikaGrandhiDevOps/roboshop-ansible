@@ -39,11 +39,7 @@
     ansible.builtin.systemd_service:
      daemon_reload: true  
 
-  - name: enable catalogue
-    ansible.builtin.service:
-     name: catalogue
-     enabled: true
-     state: started 
+
 
   - name: copy mongo.repo
     ansible.builtin.copy:
@@ -63,7 +59,11 @@
      ansible.builtin.command: mongo --host mongodb.crobo.shop < /app/schema/catalogue.js
      when: product_count.stdout == 0
 
-
+  - name: enable catalogue
+    ansible.builtin.service:
+     name: catalogue
+     enabled: true
+     state: started 
 
 
           
