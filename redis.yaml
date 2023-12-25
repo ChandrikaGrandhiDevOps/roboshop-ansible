@@ -10,5 +10,4 @@
 - name:  install redis
   ansible.builtin.service:
     - name: redis
-      state: present
-- name:             
+      state: present     
