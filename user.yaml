@@ -26,8 +26,10 @@
 
   - name: create zip file
     ansible.builtin.unarchive:
-      src: user.zip
-       path: /app
+      src: tmp/user.zip
+      path: /app
+      remote_src: yes
+
 
   - name: install npm
     ansible.builtin.command: npm install
@@ -64,7 +66,7 @@
     ansible.builtin.package:
      name: mongodb-org-shell   
      state: present
-     
+
   - name: 
     ansible.builtin.command: mongo --host mongodb.crobo.shop < /app/schema/user.js   
               
