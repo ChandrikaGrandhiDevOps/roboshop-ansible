@@ -1,4 +1,3 @@
-hubc
 
 - name: mongodb
   hosts: localhost
