@@ -1,3 +1,9 @@
+- name: redis
+  hosts: redis
+  user: centos
+  become: yes
+  connection: ssh
+
 - name: dnf install
   ansible.builtin.yumrepository:
     - name: 
