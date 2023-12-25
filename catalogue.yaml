@@ -18,8 +18,8 @@
       path: /app
       state: directory
   - name: Download the application code to created app directory
-    ansible.builtin.url:
-     get_url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+    ansible.builtin.get_url:
+     url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
      dest: /tmp
 
   - name: unzipping
@@ -38,11 +38,30 @@
   - name: reload
     ansible.builtin.systemd_service:
      daemon_reload: true  
-  - name: enable catalogue
-    ansible.builtin.service:
-     name: catalogue
-     enabled: true
-     state: started
+
+  # - name: enable catalogue
+  #   ansible.builtin.service:
+  #    name: catalogue
+  #    enabled: true
+  #    state: started 
+
+  - name: copy mongo.repo
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  - name: install package
+    ansible.builtin.package:
+     name: mongodb-org-shell
+     state:  present
+  - name: 
+    ansible.builtin.command: mongo --host mongodb.crobo.shop --quiet --eval 'db =db. getSiblingDB("catalogue"); db.products.count()'     
+    register: product_count
+  - name:  print the count
+    ansible.builtin.debug:
+      msg: "product count: {{product_count}}"
+  # -  name: load catalogue data
+  #    ansible.builtin.command: mongo --host mongodb.crobo.shop </app/schema/catalogue.js
+
 
 
 
