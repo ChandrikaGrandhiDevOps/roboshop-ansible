@@ -1,6 +1,6 @@
 
 - name: mongodb
-  hosts: localhost
+  hosts: mongodb
   user: centos
   become: yes
   connection: ssh
