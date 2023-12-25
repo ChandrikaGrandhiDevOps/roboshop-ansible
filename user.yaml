@@ -50,12 +50,12 @@
   - name: enable
     ansible.builtin.service:
      name:  user
-     enabled: yes
+     enabled: true
 
   - name: started
     ansible.builtin.servcie:
       name: user
-      state: started
+      state: restarted
 
   - name: 
     ansible.builtin.copy:
