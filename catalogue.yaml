@@ -1,0 +1,19 @@
+- name: catalogue
+  hosts: catalogue
+  user: centos
+  become: yes
+  connection: ssh
+  tasks:
+  - name: need to disable nodejs
+    ansible.builtin.service:
+      name: nodejs
+      enable: no
+  - name: enable nodejs:18    
+    ansible.builtin.service:
+      name: nodejs:18
+      enable: yes
+  - name:  install nodejs
+    ansible.builtin.dnf:
+      name: nodejs
+      state: present
+          
