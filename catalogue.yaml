@@ -5,13 +5,7 @@
   connection: ssh
   tasks:
   - name: need to disable nodejs
-    ansible.builtin.service:
-      name: nodejs
-      enable: no
-  - name: enable nodejs:18    
-    ansible.builtin.service:
-      name: nodejs:18
-      enable: yes
+    ansible.builtin.shell: dnf module disable nodejs -y; dnf module enable nodejs:18 -y
   - name:  install nodejs
     ansible.builtin.dnf:
       name: nodejs
