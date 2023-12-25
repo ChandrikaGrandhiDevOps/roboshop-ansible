@@ -55,7 +55,7 @@
   - name: started
     ansible.builtin.servcie:
       name: user
-      state: satrted
+      state: started
 
   - name: 
     ansible.builtin.copy:
