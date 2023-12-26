@@ -30,7 +30,7 @@
   - name: 
     ansible.builtin.copy:
       src: robo/roboshop.conf
-      dest: /etc/nginx/default.d/roboshop.conf 
+      dest: roboshop-ansible/etc/nginx/default.d/roboshop.conf 
 
   - name: 
     ansible.builtin.service:
