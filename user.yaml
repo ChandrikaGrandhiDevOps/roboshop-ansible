@@ -26,7 +26,7 @@
 
   - name: create zip file
     ansible.builtin.unarchive:
-      src: user.zip
+      src: /tmp/user.zip
       dest: /app
       remote_src: yes
 
