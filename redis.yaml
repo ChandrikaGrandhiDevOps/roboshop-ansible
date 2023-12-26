@@ -3,14 +3,15 @@
   user: centos
   become: yes
   connection: ssh
+  tasks:
 
-- name: dnf install
-  ansible.builtin.shell: dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-- name:  enabling dnf module
-  ansible.builtin.dnf:
-    - name: redis:remi-6.2 
-      enabled: yes   
-- name:  install redis
-  ansible.builtin.service:
-    - name: redis
-      state: present     
+    - name: dnf install
+      ansible.builtin.shell: dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+    - name:  enabling dnf module
+      ansible.builtin.dnf:
+        - name: redis:remi-6.2 
+          enabled: yes   
+    - name:  install redis
+      ansible.builtin.service:
+        - name: redis
+          state: present     
