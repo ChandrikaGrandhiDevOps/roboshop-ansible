@@ -95,9 +95,9 @@
     ansible.builtin.debug:
       msg: "schema output: {{schema}}" 
 
-  # - name: load cities
-  #   ansible.builtin.command: mysql -h mysql.crobo.shop -uroot -pRoboShop@1 < /app/schema/shipping.sql 
-  #   when schema.stdout != "1"      
+  - name: load cities
+    ansible.builtin.command: mysql -h mysql.crobo.shop -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+    when: schema.stdout != "1"      
         
 
 
