@@ -89,7 +89,7 @@
   
   - name: restrat shipping
     ansible.builtin.service: 
-      name: mysql
+      name: shipping
       state: restarted
         
 
