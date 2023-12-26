@@ -29,8 +29,8 @@
 
   - name: mvn clean package
     ansible.builtin.command: mvn clean package
-     args:
-        chdir: /app
+    args:
+       chdir: /app
 
   - name:   copy
     ansible.builtin.copy:
