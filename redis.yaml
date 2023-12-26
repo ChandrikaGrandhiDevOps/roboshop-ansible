@@ -5,10 +5,7 @@
   connection: ssh
 
 - name: dnf install
-  ansible.builtin.yumrepository:
-    - name: 
-      url: https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-      state: present
+  ansible.builtin.shell: dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
 - name:  enabling dnf module
   ansible.builtin.dnf:
     - name: redis:remi-6.2 
