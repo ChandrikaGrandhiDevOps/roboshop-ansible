@@ -1,0 +1,35 @@
+- name: web
+  hosts: web
+  user: centos
+  become: yes
+  tasks:
+  - name: 
+    ansible.builtin.dnf:
+      name: nginx
+      state: present
+  - name: 
+    ansible.builtin.service:
+      name: nginx
+      enabled: yes
+      state: started
+  - name: 
+    ansible.builtin.command: rm -rf /usr/share/nginx/html/*
+  - name: 
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/web.zip
+      dest: /tmp/web.zip
+
+  - name: 
+    ansible.builtin.unarchive:
+      src: web.zip
+      dest: /tmp/web.zip  
+  - name: 
+    ansible.builtin.copy:
+      src: robo/roboshop.conf
+      dest: /etc/nginx/default.d/roboshop.conf 
+
+  - name: 
+    ansible.builtin.service:
+      name: nginx
+      stateL restart    
+    
