@@ -21,8 +21,8 @@
 
   - name: 
     ansible.builtin.unarchive:
-      src: /tmp/web.zip
-      dest: /app 
+      src: web.zip
+      dest: /tmp
       remote_src: yes
   - name: 
     ansible.builtin.copy:
