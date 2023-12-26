@@ -20,6 +20,17 @@
   - name: curl link
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
+      dest: /tmp/shipping.zip
+
+  - name:  unzipping
+    ansible.builtin.unarchive:
+      src: shippinh.zip
+      dest: /app
+      remote_src: yes       
+
+  - name: curl link
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
       dest:  /tmp/shipping.zip
 
   - name:  unzipping
@@ -27,7 +38,7 @@
       src: shipping.zip
       dest: /app
       remote_src: yes 
-      
+
   - name: mvn clean package
     ansible.builtin.command: mvn clean package
     args:
