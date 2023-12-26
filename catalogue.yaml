@@ -27,24 +27,26 @@
      src: /tmp/catalogue.zip
      dest: /app
      remote_src: yes
+
   - name: npm
     ansible.builtin.command: npm install
     args:
       chdir: /app
+
   - name: Setup SystemD Catalogue Service
     ansible.builtin.copy:
       src: catalogue.service
       dest: /etc/systemd/system/catalogue.service
+
   - name: reload
     ansible.builtin.systemd_service:
      daemon_reload: true  
-
-
 
   - name: copy mongo.repo
     ansible.builtin.copy:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
+      
   - name: install package
     ansible.builtin.package:
      name: mongodb-org-shell
@@ -57,7 +59,7 @@
       msg: "product count: {{product_count}}"
   -  name: load catalogue data
      ansible.builtin.command: mongo --host mongodb.crobo.shop < /app/schema/catalogue.js
-     when: product_count.stdout == 0
+     when: product_count.stdout == "0"
 
   - name: enable catalogue
     ansible.builtin.service:

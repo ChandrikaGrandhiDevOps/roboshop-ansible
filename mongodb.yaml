@@ -9,15 +9,18 @@
     ansible.builtin.copy:
      src: mongo.repo
      dest: /etc/yum.repos.d/mongo.repo
+     
   - name: install mongoDB
     ansible.builtin.package:
       name: mongodb-org
       state: present
+
   - name: need to enable and restart the mongoDB
     ansible.builtin.service:
      name: mongod
      state: started
      enabled: yes
+
   - name: need to replace
     ansible.builtin.replace:
       path: /etc/mongod.conf
