@@ -24,7 +24,7 @@
 
   - name:  unzipping
     ansible.builtin.unarchive:
-      src: shipping.zip
+      src: /tmp/shipping.zip
       dest: /app
       remote_src: yes 
   - name: mvn clean package
