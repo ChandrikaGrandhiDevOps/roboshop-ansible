@@ -1,0 +1,25 @@
+- name: my sql
+  hosts: mysql
+  user: centos
+  become: yes
+  tasks:
+   - name: mysql
+     ansible.builtin.command: dnf module disable mysql -y
+   - name: copying  
+     ansible.builtin.copy: 
+       src: mysql.repo
+       dest: /etc/yum.repos.d/mysql.repo
+    - name:  dnf install mysql-community-server -y  
+      ansible.builtin.package:
+        name: mysql-community-server
+        state: present
+    - name:   mysqld
+      ansible.builtin.service:
+        name: mysqld
+        enabled: yes
+        state: started
+    - name: mysql_secure_installation --set-root-pass RoboShop@1
+      ansible.builtin.command: mysql_secure_installation --set-root-pass RoboShop@1
+        
+
+
