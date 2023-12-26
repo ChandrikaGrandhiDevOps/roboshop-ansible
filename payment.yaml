@@ -28,7 +28,7 @@
 
   - name:   unzipping
     ansible.builtin.unarchive:
-      path: /tmp/payment.zip
+      src: /tmp/payment.zip
       dest: /app
       remore_src: yes
 
