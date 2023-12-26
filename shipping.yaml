@@ -98,7 +98,11 @@
   - name: load cities
     ansible.builtin.shell: "mysql -h mysql.crobo.shop -uroot -p{{mysql_password}} < /app/schema/shipping.sql"
     when: schema.stdout != "1"      
-        
+  - name: 
+    ansible.builtin.service:
+      name: shipping
+      enabled: yes
+      state: restarted      
 
 
               
