@@ -60,10 +60,8 @@
     args:
        chdir: /app
 
-  - name:   copy
-    ansible.builtin.copy:
-     src: target/shipping-1.0.jar
-     dest: shipping.jar
+  - name: copy
+    ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
 
   - name:  copy
     ansible.builtin.copy:
