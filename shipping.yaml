@@ -80,7 +80,7 @@
       state: started
 
   - name: install mysql   
-    ansible.builtin.package:
+    ansible.builtin.dnf:
       name: mysql 
       state: present
 
