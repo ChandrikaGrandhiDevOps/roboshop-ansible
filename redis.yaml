@@ -9,7 +9,7 @@
     - name: enabling dnf module
       ansible.builtin.command: dnf module enable redis:remi-6.2 -y
     - name:  install redis
-      ansible.builtin.service:
+      ansible.builtin.package:
         - name: redis
           state: present     
     - name: replaceing ports
