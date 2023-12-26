@@ -26,7 +26,7 @@
 
   - name: create zip file
     ansible.builtin.unarchive:
-      src: /tmp/user.zip
+      src: user.zip
       dest: /app
       remote_src: yes
 
@@ -36,8 +36,6 @@
     args:
        chdir: /app
        
-      
-
   - name: create user service
     ansible.builtin.copy:
      src: user.service
