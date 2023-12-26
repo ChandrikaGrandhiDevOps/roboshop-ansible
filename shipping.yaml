@@ -1,0 +1,71 @@
+- name: shipping
+  hosts: shipping
+  user: centos
+  become: yes
+  tasks:
+  - name: maven installation
+    ansible.builtin.dnf:
+      name: maven
+      state: present
+
+  - name: add user
+    ansible.builtin.user:
+      name: roboshop
+
+  - name:  make directory
+    ansible.builtin.file:
+      name: app
+      state: directory
+
+  - name: curl link
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
+      dest:  /tmp/shipping.zip
+
+  - name:  unzipping
+    ansible.builtin.unarchive:
+      src: shipping.zip
+      dest: /tmp
+
+  - name: mvn clean package
+    ansible.builtin.command: mvn clean package
+     args:
+       chdir: /app
+
+  - name:   copy
+    ansible.builtin.copy:
+     src: target/shipping-1.0.jar
+     dest: shipping.jar
+
+  - name:  copy
+    ansible.builtin.copy:
+     src: shipping.service 
+     dest: /etc/systemd/system/shipping.service  
+
+  - name:  daemon-reload
+    ansible.builtin.systemd_service:
+     daemon-reload: true
+
+  - name:  start and enable
+    ansible.builtin.service:
+      name: shipping 
+      enabled: yes
+      state: started
+
+  - name: install mysql   
+    ansible.builtin.package:
+      name: mysql 
+      state: present
+
+  - name: loading schema
+    ansible.builtin.command: mysql -h mysql.crobo.shop -uroot -pRoboShop@1 < /app/schema/shipping.sql     
+  
+  - name: restrat shipping
+    ansible.builtin.service: 
+      name: mysql
+      state: restarted
+        
+
+
+              
+          
