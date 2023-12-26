@@ -14,7 +14,7 @@
 
   - name:  make directory
     ansible.builtin.file:
-      name: app
+      name: /app
       state: directory
 
   - name: curl link
@@ -24,7 +24,7 @@
 
   - name:  unzipping
     ansible.builtin.unarchive:
-      src: /tmp/shipping.zip
+      src: shipping.zip
       dest: /app
       remote_src: yes 
   - name: mvn clean package
