@@ -15,26 +15,24 @@
   - name: add user
     ansible.builtin.user:
       name: roboshop
-
-  - name:  mk dir
-    ansible.builtin.file:
+  - name:
+    file:
       path: /app
-      state: directory  
-
+      state: directory
   - name:
     get_url:
       url: https://roboshop-builds.s3.amazonaws.com/payment.zip
       dest: /tmp
-
-
-  - name: unzipping
-    ansible.builtin.unarchive:
+  - name:
+    unarchive:
       src: /tmp/payment.zip
-      dest: /app
-      remore_src: yes
+      dest: /app 
+      remote_src: yes
 
   - name:   
-    ansible.builtin.command: pip3.6 install -r requirements.txt     
+    ansible.builtin.command: pip3.6 install -r requirements.txt   
+     args:
+        chdir: /app     
 
   - name: 
     ansible.builtin.copy:
