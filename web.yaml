@@ -22,7 +22,7 @@
   - name: 
     ansible.builtin.unarchive:
       src: web.zip
-      dest: /tmp/web.zip  
+      dest: /app 
   - name: 
     ansible.builtin.copy:
       src: robo/roboshop.conf
