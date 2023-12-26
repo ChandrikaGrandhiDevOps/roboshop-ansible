@@ -27,6 +27,8 @@
       src: /tmp/web.zip
       dest: /usr/share/nginx/html
       remote_src: yes
+
+      
   - name: 
     ansible.builtin.copy:
       src: roboshop.conf
@@ -35,5 +37,5 @@
   - name: 
     ansible.builtin.service:
       name: nginx
-      state: restart
+      state: restarted
     
