@@ -19,7 +19,7 @@
   - name:  mk dir
     ansible.builtin.file:
       path: /app
-      state: present   
+      state: directory  
 
   - name:  zipping
     ansible.builtin.get_url:
