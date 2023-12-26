@@ -27,16 +27,5 @@
     ansible.builtin.service:
      name: mongod
      state: restarted   
-  - name: need to replace
-    ansible.builtin.replace:
-      path: /etc/redis.conf & /etc/redis/redis.conf
-      regexp: "127.0.0.1"
-      replace: '0.0.0.0' 
-  - name: Start & Enable Redis Service
-    ansible.builtin.service:
-      name: redis
-      state: started
-      enabled: yes
-         
-
+  
      
