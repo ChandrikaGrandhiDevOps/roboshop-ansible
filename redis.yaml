@@ -8,7 +8,7 @@
     - name: dnf install
       ansible.builtin.shell: dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
     - name:  enabling dnf module
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         - name: redis:remi-6.2 
           enabled: yes   
     - name:  install redis
