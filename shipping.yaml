@@ -27,6 +27,7 @@
       src: shipping.zip
       dest: /app
       remote_src: yes 
+      
   - name: mvn clean package
     ansible.builtin.command: mvn clean package
     args:
