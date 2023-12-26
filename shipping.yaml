@@ -12,32 +12,48 @@
     ansible.builtin.user:
       name: roboshop
 
-  - name:  make directory
-    ansible.builtin.file:
-      name: /app
+  # - name:  make directory
+  #   ansible.builtin.file:
+  #     name: /app
+  #     state: directory
+
+  - name:
+    file:
+      path: /app
       state: directory
 
-  - name: curl link
-    ansible.builtin.get_url:
+  - name:
+    get_url:
       url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
       dest: /tmp
-
-  - name:  unzipping
-    ansible.builtin.unarchive:
-      src: shipping.zip
+  
+  - name: 
+    unarchive:
+      src: /tmp/shipping.zip
       dest: /app
-      remote_src: yes       
+      remote_src: yes    
 
-  - name: curl link
-    ansible.builtin.get_url:
-      url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
-      dest:  /tmp/shipping.zip
+  # - name: curl link
+  #   ansible.builtin.get_url:
+  #     url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
+  #     dest: /tmp
 
-  - name:  unzipping
-    ansible.builtin.unarchive:
-      src: shipping.zip
-      dest: /app
-      remote_src: yes 
+  # - name:  unzipping
+  #   ansible.builtin.unarchive:
+  #     src: shipping.zip
+  #     dest: /app
+  #     remote_src: yes       
+
+  # - name: curl link
+  #   ansible.builtin.get_url:
+  #     url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
+  #     dest:  /tmp/shipping.zip
+
+  # - name:  unzipping
+  #   ansible.builtin.unarchive:
+  #     src: shipping.zip
+  #     dest: /app
+  #     remote_src: yes 
 
   - name: mvn clean package
     ansible.builtin.command: mvn clean package
