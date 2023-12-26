@@ -18,11 +18,14 @@
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/web.zip
       dest: /tmp/web.zip
-
+  - name: 
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: directory
   - name: 
     ansible.builtin.unarchive:
-      src: web.zip
-      dest: /tmp
+      src: /tmp/web.zip
+      dest: /usr/share/nginx/html
       remote_src: yes
   - name: 
     ansible.builtin.copy:
