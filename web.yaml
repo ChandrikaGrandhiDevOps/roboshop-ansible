@@ -31,5 +31,5 @@
   - name: 
     ansible.builtin.service:
       name: nginx
-      stateL restart    
+      state: restart    
     
