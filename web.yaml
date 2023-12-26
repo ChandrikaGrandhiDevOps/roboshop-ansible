@@ -23,6 +23,7 @@
     ansible.builtin.unarchive:
       src: web.zip
       dest: /app 
+      remote_src: yes
   - name: 
     ansible.builtin.copy:
       src: robo/roboshop.conf
