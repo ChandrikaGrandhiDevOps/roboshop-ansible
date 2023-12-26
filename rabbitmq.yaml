@@ -15,7 +15,7 @@
       state: present
 
   - name: 
-    ansible.builtin.server:  
+    ansible.builtin.service:  
       name: rabbitmq-server
       state: restarted
       enabled: yes
