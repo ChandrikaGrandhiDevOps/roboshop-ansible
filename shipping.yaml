@@ -20,7 +20,7 @@
   - name: curl link
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
-      dest: /tmp/shipping.zip
+      dest: /tmp
 
   - name:  unzipping
     ansible.builtin.unarchive:
