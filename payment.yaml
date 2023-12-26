@@ -3,26 +3,49 @@
   user: centos
   become: yes
   tasks:
-  - name: url
-    ansible.builtin.get_url:
-      url: https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh
-      dest: 
-
-  - name: 
-    ansible.builtin.get_url:
-      url: https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh
-      dest:
-
-  - name: 
+  - name: install dnf install python36 gcc python3-devel -y
     ansible.builtin.dnf:
-      name: rabbitmq-server
-      state: present    
+      name: "{{item}}"
+      state: present
+    loop:
+    - python36 
+    - gcc 
+    - python3-devel  
+
+  - name: add user
+    ansible.builtin.user:
+      name: roboshop
+
+  - name:  mk dir
+    ansible.builtin.file:
+      path: /app
+      state: present   
+
+  - name:  zipping
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/payment.zip
+      dest:  /tmp/payment.zip
+
+  - name:   unzipping
+    ansible.builtin.unarchive:
+      path: /tmp/payment.zip
+      dest: /app
+      remore_src: yes
+
+  - name:   
+    ansible.builtin.command: pip3.6 install -r requirements.txt     
+
+  - name: 
+    ansible.builtin.copy:
+      src: payment.service
+      dest: /etc/systemd/system/payment.service
+
+  - name: 
+    ansible.builtin. systemd_service:
+      daemon-reload: yes
 
   - name: 
     ansible.builtin.service:
-      name: rabbitmq-server 
-      state: started
+      name: payment
       enabled: yes
-
-  - name: 
-    ansible.builtin.          
+      state: restarted   
