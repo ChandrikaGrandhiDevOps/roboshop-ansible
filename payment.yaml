@@ -1,0 +1,28 @@
+- name: payment
+  hosts: payment
+  user: centos
+  become: yes
+  tasks:
+  - name: url
+    ansible.builtin.get_url:
+      url: https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh
+      dest: 
+
+  - name: 
+    ansible.builtin.get_url:
+      url: https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh
+      dest:
+
+  - name: 
+    ansible.builtin.dnf:
+      name: rabbitmq-server
+      state: present    
+
+  - name: 
+    ansible.builtin.service:
+      name: rabbitmq-server 
+      state: started
+      enabled: yes
+
+  - name: 
+    ansible.builtin.          
