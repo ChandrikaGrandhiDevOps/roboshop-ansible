@@ -23,8 +23,8 @@
 
   - name: 
     get_url: 
-    url: https://roboshop-builds.s3.amazonaws.com/dispatch.zip
-    dest: /tmp
+      url: https://roboshop-builds.s3.amazonaws.com/dispatch.zip
+      dest: /tmp
 
   - name: 
     unarchive:
