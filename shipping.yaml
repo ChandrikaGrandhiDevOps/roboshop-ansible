@@ -8,11 +8,11 @@
       name: maven
       state: present
 
-  - name:
+  - name: 
     user:
       name: roboshop
 
-  - name:
+  - name: 
     file:
       path: /app
       state: directory
@@ -21,47 +21,46 @@
     get_url:
       url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
       dest: /tmp
-  
+
   - name: 
     unarchive:
       src: /tmp/shipping.zip
-      dest: /app
+      dest:  /app
       remote_src: yes
 
-  - name: 
+
+  - name:      
     command: mvn clean package
-    args:
-      chdir: /app
-  - name:
-    command: mv /app/target/shipping-1.0.jar /home/centos/app/shipping.jar
+      args:
+         chdir: /app
 
-  - name:
-    copy:
-      src: shipping.service
-      dest: /etc/systemd/system/shipping.service
+  - name: 
+    command: mv target/shipping-1.0.jar shipping.jar  
+      args: 
+         chdir: /app
 
-  
-  - name:
-    systemd_service:
-      daemon_reload: true
+  # - name:   
+  #   copy:
+  #     src: shipping.service
+  #     dest: /etc/systemd/system/shipping.service
 
-  - name:
-    service:
-      name: shipping
-      state: started
-      enabled: yes
+  # - name:    
+  #   systemd_service:
+  #     daemon-reload= yes
 
-  - name:
-    dnf:
-      name: mysql
-      state: present
+  # -  name: 
+  #    service:
+  #      name: shipping
+  #      enabled: yes
+  #      state: started
 
-############need to uncommet this###########
+  # - name: 
+  #   dnf:
+  #     name: mysql
+  #     state: present
 
-  # - name:
-  #   command: mysql -h mysql.nariops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql 
-  
-  - name:
-    service:
-      name: shipping
-      state: restarted
+
+
+
+
+            
