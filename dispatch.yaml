@@ -56,11 +56,11 @@
     systemd_service:
       daemon-reload: true
 
-  - name: 
+  - name:
     service:
       name: dispatch
+      state: started
       enabled: yes
-      start: started
                       
 
         
