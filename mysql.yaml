@@ -1,6 +1,6 @@
 - name: my sql
   hosts: mysql
-  user: centos
+  
   become: yes
   tasks:
    - name: mysql
