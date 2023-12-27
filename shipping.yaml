@@ -96,8 +96,9 @@
       msg: "schema output: {{schema}}" 
 
   - name: load cities
-    ansible.builtin.shell: "mysql -h mysql.crobo.shop -uroot -p{{mysql_password}} < /app/schema/shipping.sql"
-    when: schema.stdout != "1"      
+    ansible.builtin.shell: "mysql -h mysql.crobo.shop -uroot -p{{mysql_password}} </app/schema/shipping.sql"
+    when: schema.stdout != "1"   
+
   - name: 
     ansible.builtin.service:
       name: shipping
