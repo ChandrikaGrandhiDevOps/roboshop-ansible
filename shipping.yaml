@@ -33,7 +33,7 @@
     args:
       chdir: /app
   - name:
-    command: mv /app/target/shipping-1.0.jar shipping.jar
+    command: mv /app/target/shipping-1.0.jar /home/centos/app/shipping.jar
 
   - name:
     copy:
