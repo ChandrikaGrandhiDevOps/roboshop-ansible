@@ -15,6 +15,12 @@
   - name: add user
     ansible.builtin.user:
       name: roboshop
+
+  - name:
+    file:
+      path: /app
+      state: absent 
+
   - name:
     file:
       path: /app
@@ -41,7 +47,7 @@
 
   - name: 
     ansible.builtin.systemd_service:
-      daemon-reload: yes
+      daemon-reload: true
 
   - name: 
     ansible.builtin.service:
