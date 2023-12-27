@@ -25,6 +25,9 @@
       name: mysqld
       state: started
       enabled: yes
+
+  - name: setup root password
+    command: mysql_secure_installation --set-root-pass RoboShop@1    
   
   # - name:
   #   command: mysql_secure_installation --set-root-pass RoboShop@1
@@ -32,3 +35,4 @@
 #The below command is to check mysql is connected or not
   # - name: 
   #   command: mysql -uroot -pRoboShop@1
+
