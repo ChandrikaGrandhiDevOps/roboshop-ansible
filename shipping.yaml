@@ -2,6 +2,8 @@
 - name:
   hosts: shipping
   become: yes
+  vars:
+    mysql_password: RoboShop@1
   tasks:
   - name: install maven
     dnf:
@@ -25,7 +27,7 @@
   - name: 
     unarchive:
       src: /tmp/shipping.zip
-      dest:  /app
+      dest: /app
       remote_src: yes
 
 
@@ -39,14 +41,28 @@
       args: 
          chdir: /app
 
-  # - name:   
-  #   copy:
-  #     src: shipping.service
-  #     dest: /etc/systemd/system/shipping.service
+  - name:   
+    copy:
+      src: shipping.service
+      dest: /etc/systemd/system/shipping.service
 
-  # - name:    
-  #   systemd_service:
-  #     daemon-reload= yes
+  - name:    
+    systemd_service:
+      daemon_reload= true
+
+  - name: 
+    dnf:
+      name: mysql
+      state: present  
+
+  - name:
+    command: mysql -h mysql.crobo.shop -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA  WHERE SCHEMA_NAME = 'cities'"
+    register: schema
+
+  - name: output
+    debug:
+      msg: "schema output: {{schema}}"  
+          
 
   # -  name: 
   #    service:
