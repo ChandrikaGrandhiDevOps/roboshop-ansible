@@ -1,0 +1,67 @@
+- name: dispatch
+  hosts: dispatch
+  become: yes
+  tasks:
+  - name: 
+    dnf:
+      name: golang
+      state: present
+
+  - name: 
+    user:
+      name: roboshop
+
+  - name: 
+    file:
+      path: /app
+      state: absent    
+
+  - name: 
+    file:
+      path: /app
+      state: directory
+
+  - name: 
+    get_url: 
+    url: https://roboshop-builds.s3.amazonaws.com/dispatch.zip
+    dest: /tmp
+
+  - name: 
+    unarchive:
+      src: /tmp/dispatch.zip  
+      dest: /app
+      remote_src: yes  
+
+  - name: 
+    command: go mod init dispatch
+    args:
+       chdir: /app
+
+  - name: 
+    command: go get
+    args:
+      chdir: /app
+
+  - name:
+    command: go build
+    args:
+       chdir: /app
+
+  - name: 
+    copy: 
+      src: dispatch.service    
+      dest: /etc/systemd/system/dispatch.service 
+
+  - name: 
+    systemd_service:
+      daemon-reload: true
+
+  - name: 
+    service:
+      name: dispatch
+      enabled: yes
+      start: restarted
+                      
+        
+
+        
