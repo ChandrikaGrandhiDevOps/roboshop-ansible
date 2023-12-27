@@ -1,23 +1,16 @@
-- name: shipping
+# ansible-playbook -i inventory  -e ansible_user=centos -e ansible_password=DevOps321 shipping.yaml
+- name:
   hosts: shipping
-  user: centos
   become: yes
-  vars:
-    mysql_password: RoboShop@1
   tasks:
-  - name: maven installation
-    ansible.builtin.dnf:
+  - name: install maven
+    dnf:
       name: maven
       state: present
 
-  - name: add user
-    ansible.builtin.user:
+  - name:
+    user:
       name: roboshop
-
-  # - name:  make directory
-  #   ansible.builtin.file:
-  #     name: /app
-  #     state: directory
 
   - name:
     file:
@@ -33,78 +26,42 @@
     unarchive:
       src: /tmp/shipping.zip
       dest: /app
-      remote_src: yes    
-
-  # - name: curl link
-  #   ansible.builtin.get_url:
-  #     url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
-  #     dest: /tmp
-
-  # - name:  unzipping
-  #   ansible.builtin.unarchive:
-  #     src: shipping.zip
-  #     dest: /app
-  #     remote_src: yes       
-
-  # - name: curl link
-  #   ansible.builtin.get_url:
-  #     url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
-  #     dest:  /tmp/shipping.zip
-
-  # - name:  unzipping
-  #   ansible.builtin.unarchive:
-  #     src: shipping.zip
-  #     dest: /app
-  #     remote_src: yes 
-
-  - name: mvn clean package
-    ansible.builtin.command: mvn clean package
-    args:
-       chdir: /app
-
-  
-  - name: copy
-    ansible.builtin.command: mv /app/target/shipping-1.0.jar shipping.jar
-
-  - name:  copy
-    ansible.builtin.copy:
-     src: shipping.service 
-     dest: /etc/systemd/system/shipping.service  
-
-  - name:  daemon-reload
-    ansible.builtin.systemd_service:
-     daemon-reload: true
-
-  - name:  start and enable
-    ansible.builtin.service:
-      name: shipping 
-      enabled: yes
-      state: started
-
-  - name: install mysql   
-    ansible.builtin.dnf:
-      name: mysql 
-      state: present
-
-  - name: checking schema exist or not
-    ansible.builtin.command: mysql -h mysql.crobo.shop -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = 'cities'"    
-    register: schema
-   
-
-  - name: output printing
-    ansible.builtin.debug:
-      msg: "schema output: {{schema}}" 
-
-  - name: load cities
-    ansible.builtin.shell: "mysql -h mysql.crobo.shop -uroot -p{{mysql_password}} </app/schema/shipping.sql"
-    when: schema.stdout != "1"  
+      remote_src: yes
 
   - name: 
-    ansible.builtin.service:
+    command: mvn clean package
+    args:
+      chdir: /app
+  - name:
+    command: mv /app/target/shipping-1.0.jar shipping.jar
+
+  - name:
+    copy:
+      src: shipping.service
+      dest: /etc/systemd/system/shipping.service
+
+  
+  - name:
+    systemd_service:
+      daemon_reload: true
+
+  - name:
+    service:
       name: shipping
+      state: started
       enabled: yes
-      state: restarted      
 
+  - name:
+    dnf:
+      name: mysql
+      state: present
 
-              
-          
+############need to uncommet this###########
+
+  # - name:
+  #   command: mysql -h mysql.nariops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+  
+  - name:
+    service:
+      name: shipping
+      state: restarted
