@@ -60,8 +60,9 @@
     service:
       name: dispatch
       enabled: yes
-      start: restarted
+      start: started
                       
+
         
 
         
